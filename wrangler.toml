@@ -7,7 +7,6 @@ command = "npm run build"
 
 [site]
 bucket = "./dist/public"
-entry-point = "dist"
 
 [observability]
 logs = { enabled = true }
