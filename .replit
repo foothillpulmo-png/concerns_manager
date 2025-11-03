@@ -40,3 +40,8 @@ waitForPort = 5000
 
 [agent]
 integrations = ["javascript_log_in_with_replit:1.0.0", "javascript_websocket:1.0.0"]
+
+git add wrangler.toml
+git commit -m "Add wrangler config for Cloudflare deployment"
+git push origin main
+
