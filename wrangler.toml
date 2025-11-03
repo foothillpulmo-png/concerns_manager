@@ -1,10 +1,45 @@
 name = "foothill-tracker"
 main = "dist/index.js"
-compatibility_date = "2025-11-03"
+compatibility_date = "2024-11-01"
+workers_dev = true
+
+# --- Optional: enable Node compatibility for some modules ---
+# This helps with `path`, `url`, etc. (but NOT native Node modules)
 compatibility_flags = ["nodejs_compat"]
 
-# Important:
-type = "javascript"
+# --- Build Configuration ---
+[build]
+command = "npm run build"
 
-[site]
-bucket = "./dist/public"
+# Tell Wrangler what the built output looks like
+[build.upload]
+format = "modules"
+dir = "dist"
+main = "index.js"
+
+# --- Environment Variables ---
+[vars]
+NODE_ENV = "production"
+PORT = "8080"
+
+# --- Exclude problematic native dependencies from being bundled ---
+[build.exclude]
+# These are Node-native or binary dependencies that break Workers
+dependencies = ["lightningcss", "@babel/preset-typescript"]
+
+# --- Route Configuration (optional if using Workers.dev) ---
+# Uncomment and set these when binding a domain:
+# routes = [
+#   { pattern = "foothillpulmo.example.com/*", zone_name = "example.com" }
+# ]
+
+# --- Logging & observability ---
+[observability]
+enabled = true
+logs = true
+metrics = true
+
+# --- KV / D1 / Database bindings (optional, for later) ---
+# [d1_databases]
+# DB = { binding = "DB", database_name = "foothill_db", database_id = "your-db-id" }
+
